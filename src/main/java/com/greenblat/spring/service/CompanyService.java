@@ -4,7 +4,7 @@ public class CompanyService {
 
     private UserService userService;
 
-    // зацикливание 
+    // зацикливание
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
