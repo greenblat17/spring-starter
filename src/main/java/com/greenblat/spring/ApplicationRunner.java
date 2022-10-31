@@ -5,11 +5,17 @@ import com.greenblat.spring.database.repository.CompanyRepository;
 import com.greenblat.spring.database.repository.UserRepository;
 import com.greenblat.spring.ioc.Container;
 import com.greenblat.spring.service.UserService;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ApplicationRunner {
 
     public static void main(String[] args) {
+        String value = "hello";
+        System.out.println(CharSequence.class.isAssignableFrom(value.getClass()));
+        System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
+
+
         try (var context = new ClassPathXmlApplicationContext("application.xml")) {
             // clazz -> String -> Map<String, Object>
 
