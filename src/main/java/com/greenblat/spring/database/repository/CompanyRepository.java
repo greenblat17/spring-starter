@@ -1,26 +1,39 @@
 package com.greenblat.spring.database.repository;
 
 import com.greenblat.spring.bpp.Auditing;
-import com.greenblat.spring.bpp.InjectBean;
 import com.greenblat.spring.bpp.Transaction;
 import com.greenblat.spring.database.entity.Company;
 import com.greenblat.spring.database.pool.ConnectionPool;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    @InjectBean
-    private  ConnectionPool connectionPool;
+//    @Resource(name = "pool1")
+//    @Qualifier("pool1")
+    private  ConnectionPool pool1;
+    @Autowired
+    private List<ConnectionPool> pools;
+    @Value("${db.pool.size}")
+    private Integer poolSize;
 
     @PostConstruct
     private void init() {
         System.out.println("init company repository");
     }
 
+    @Autowired
+    public void setPool1(ConnectionPool pool1) {
+        this.pool1 = pool1;
+    }
 
     @Override
     public Optional<Company> findById(Integer id) {
