@@ -1,16 +1,35 @@
 package com.greenblat.spring.database.repository;
 
+import com.greenblat.spring.bpp.Auditing;
+import com.greenblat.spring.bpp.InjectBean;
+import com.greenblat.spring.bpp.Transaction;
+import com.greenblat.spring.database.entity.Company;
 import com.greenblat.spring.database.pool.ConnectionPool;
 
-public class CompanyRepository {
+import javax.annotation.PostConstruct;
+import java.util.Optional;
 
-    private final ConnectionPool connectionPool;
+@Transaction
+@Auditing
+public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    private CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    @InjectBean
+    private  ConnectionPool connectionPool;
+
+    @PostConstruct
+    private void init() {
+        System.out.println("init company repository");
     }
 
-    public static CompanyRepository of(ConnectionPool connectionPool) {
-        return new CompanyRepository(connectionPool);
+
+    @Override
+    public Optional<Company> findById(Integer id) {
+        System.out.println("findById() method...");
+        return Optional.of(new Company(id));
+    }
+
+    @Override
+    public void delete(Company entity) {
+
     }
 }
