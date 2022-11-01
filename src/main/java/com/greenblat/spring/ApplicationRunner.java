@@ -2,6 +2,7 @@ package com.greenblat.spring;
 
 import com.greenblat.spring.database.pool.ConnectionPool;
 import com.greenblat.spring.database.repository.CompanyRepository;
+import com.greenblat.spring.database.repository.CrudRepository;
 import com.greenblat.spring.database.repository.UserRepository;
 import com.greenblat.spring.ioc.Container;
 import com.greenblat.spring.service.UserService;
@@ -22,8 +23,8 @@ public class ApplicationRunner {
             var connectionPool = context.getBean("pool1", ConnectionPool.class);
             System.out.println(connectionPool);
 
-            var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(companyRepository);
+            var companyRepository = context.getBean("companyRepository", CrudRepository.class);
+            System.out.println(companyRepository.findById(1));
         }
     }
 }
