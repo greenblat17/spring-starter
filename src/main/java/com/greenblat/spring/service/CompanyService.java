@@ -1,11 +1,13 @@
 package com.greenblat.spring.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CompanyService {
 
-    private UserService userService;
+    private final UserService userService;
 
-    // зацикливание
-    public void setUserService(UserService userService) {
+    public CompanyService(UserService userService) {
         this.userService = userService;
     }
 }
