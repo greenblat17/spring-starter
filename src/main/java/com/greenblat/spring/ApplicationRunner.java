@@ -1,13 +1,10 @@
 package com.greenblat.spring;
 
+import com.greenblat.spring.config.ApplicationConfiguration;
 import com.greenblat.spring.database.pool.ConnectionPool;
-import com.greenblat.spring.database.repository.CompanyRepository;
 import com.greenblat.spring.database.repository.CrudRepository;
-import com.greenblat.spring.database.repository.UserRepository;
-import com.greenblat.spring.ioc.Container;
-import com.greenblat.spring.service.UserService;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class ApplicationRunner {
 
@@ -17,7 +14,11 @@ public class ApplicationRunner {
         System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
 
 
-        try (var context = new ClassPathXmlApplicationContext("application.xml")) {
+        try (var context = new AnnotationConfigApplicationContext()) {
+//            context.register(ApplicationConfiguration.class);
+//            context.getEnvironment().setActiveProfiles("web", "prod");
+//            context.refresh();
+
             // clazz -> String -> Map<String, Object>
 
             var connectionPool = context.getBean("pool1", ConnectionPool.class);
